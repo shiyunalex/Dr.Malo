@@ -10,6 +10,8 @@ args = parser.parse_args()
 
 if args.e=='online':
     itchat.login(enableCmdQR=2)
+    room = itchat.get_chatrooms()[0]
+    room_id = room.UserName
 
 class malo:
     def __init__(self):
@@ -21,7 +23,7 @@ class malo:
 
     def send(self, msg):
         if args.e=='online':
-            itchat.send(msg, toUserName="filehelper")
+            itchat.send(msg, toUserName=room_id)
         else:
             print(msg)
     
