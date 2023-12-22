@@ -84,8 +84,10 @@ class malo:
     async def task_qingsuan(self):
         while True:
             if get_hour() == 10:
-                report = qingsuan()
-                self.send("【青蒜！】")
+                with open('data/report.json','r') as f:
+                    report = json.load(f)
+                if report['date']==datetime.now().strftime('%Y-%m-%d'):
+                    self.send(str(report))
                 await asyncio.sleep(3601)
             else:
                 await asyncio.sleep(5)
