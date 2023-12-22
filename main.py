@@ -76,7 +76,7 @@ class malo:
     async def task_5(self):
         while True:
             if get_hour() == 0:
-                self.send("【温馨提醒】各位靓仔晚安~ \nPS:赢一天了没？")
+                self.send("【温馨提醒】各位靓仔晚安~ \n(最后一把输了的除外)")
                 await asyncio.sleep(3601)
             else:
                 await asyncio.sleep(5)
