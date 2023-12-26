@@ -2,7 +2,7 @@ import requests
 from datetime import datetime, timedelta
 import json
 
-date_range = [datetime.now()-timedelta(hours=20),datetime.now()]
+hero_dict = json.load(open('data/hero_names.json','r'))
 
 class Player:
     def __init__(self, id):
@@ -13,7 +13,7 @@ class Player:
             'nickname':self.user_info['profile']['personaname'],
             'matches':[]
             }
-        self.qingsuan()
+        self.get_achievements()
     
     def get_user_info(self):
         try:
@@ -29,6 +29,7 @@ class Player:
             return datetime.fromtimestamp(match.get('start_time',0))
         
         try:
+            date_range = [datetime.now()-timedelta(hours=20),datetime.now()]
             url = f"https://api.opendota.com/api/players/{self.id}/recentMatches"
             res = requests.get(url)
             res = res.json()
@@ -38,37 +39,30 @@ class Player:
             print(e)
             return []
 
-    def qingsuan(self):
+    def get_achievements(self):
         for m in self.recent_matches:
-            r = {'hero':m['hero_id'],'achievements':[]}
-            if m['deaths']>=15:
-                r['achievements'].append('【僵】')
-            if m['hero_damage']/(m['gold_per_min']*m['duration']/60)<=0.5:
-                r['achievements'].append('【瘤】')
-            if m['hero_damage']/(m['gold_per_min']*m['duration']/60)>=3:
-                r['achievements'].append('【劳】')
-            if m['kills']/m['deaths']>=15:
-                r['achievements'].append('【天之上】')
-            if m['kills']>=25:
-                r['achievements'].append('【宰】')
-            if m['tower_damage']>11000:
-                r['achievements'].append('【拆】')
+            r = {'hero':hero_dict.get(str(m['hero_id']),m['hero_id']),'achievements':[]}
+            if m['deaths']>15:
+                r['achievements'].append(f"阵亡{m['deaths']}次，求求你别送了")
+            if m['duration']>3900 and ((127>=m['player_slot']>=0 and not m['radiant_win']) or (255>=m['player_slot']>=128 and m['radiant_win'])):
+                r['achievements'].append(f"鏖战{round(m['duration']/60)}分钟，究极长痛嘻嘻")
             if m['kills']+m['assists']<=3 :
-                r['achievements'].append('【划】')
-
+                r['achievements'].append(f"{m['kills']}杀{m['assists']}助攻，别划了呀哥们")
             if r['achievements']:
                 self.report['matches'].append(r)
     
 
-players = [
-    Player(134788522)
-]
+def qingsuan():
+    players = [
+        Player(134788522)
+    ]
 
-report = {"date":datetime.now().strftime('%Y-%m-%d'),"detail":[]}
-for p in players:
-    report['detail'].append(p.report)
+    report = {"date":datetime.now().strftime('%Y-%m-%d'),"detail":[]}
+    for p in players:
+        report['detail'].append(p.report)
 
-with open('data/report.json','w') as f:
-    json.dump(report,f,ensure_ascii=False,indent=2)
+    with open('data/report.json','w') as f:
+        json.dump(report,f,ensure_ascii=False,indent=2)
 
-
+if __name__ == '__main__':
+    qingsuan()

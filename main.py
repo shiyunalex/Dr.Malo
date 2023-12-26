@@ -81,13 +81,21 @@ class malo:
             else:
                 await asyncio.sleep(5)
     
-    async def task_qingsuan(self):
+    async def task_6(self):
         while True:
             if get_hour() == 10:
                 with open('data/report.json','r') as f:
                     report = json.load(f)
                 if report['date']==datetime.now().strftime('%Y-%m-%d'):
-                    self.send(str(report))
+                    text = "【Dr.malo 青蒜战报】\n"
+                    for i in report['detail']:
+                        text += f"{i['nickname']}:\n"
+                        for j in i['matches']:
+                            text += f"    {j['hero']}: {'，'.join(j['achievements'])}\n"
+                    self.send(str(text))
+                await asyncio.sleep(3601)
+            elif get_hour() == 8:
+                qingsuan()
                 await asyncio.sleep(3601)
             else:
                 await asyncio.sleep(5)
@@ -102,6 +110,7 @@ class malo:
             self.task_3(),
             self.task_4(),
             self.task_5(),
+            self.task_6(),
         )
     
 
@@ -112,5 +121,6 @@ if __name__ == '__main__':
         m = malo()
         asyncio.run(m.main())
     except Exception as e:
+        print(e)
         if args.e=='online':
             itchat.logout()
