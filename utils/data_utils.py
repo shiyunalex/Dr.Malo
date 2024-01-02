@@ -48,13 +48,37 @@ class Player:
                 r['achievements'].append(f"鏖战{round(m['duration']/60)}分钟，究极长痛嘻嘻")
             if m['kills']+m['assists']<=3 :
                 r['achievements'].append(f"{m['kills']}杀{m['assists']}助攻，别划了呀哥们")
+            rate = m['hero_damage']/(m['gold_per_min']*m['duration']/60)
+            if rate<0.5:
+                r['achievements'].append(f"输出经济比{round(rate,2)}，野区采灵芝。")
+            elif rate>2:
+                r['achievements'].append(f"输出经济比{round(rate,2)}，责任神！")
+            if m['kills']>=15 :
+                r['achievements'].append(f"{m['kills']}杀,哇 搞这么厉害呀！")
+            elif m['kills']>=20 :
+                r['achievements'].append(f"{m['kills']}杀,无敌了呀！")
+            elif m['kills']>=25 :
+                r['achievements'].append(f"{m['kills']}杀, 您就是yatoro god？")
+            if m['tower_damage']>10000:
+                r['achievements'].append(f"塔伤{m['tower_damage']}，拆迁办来咯！")
             if r['achievements']:
                 self.report['matches'].append(r)
     
 
 def qingsuan():
     players = [
-        Player(134788522)
+        Player(134788522),
+        Player(167008289),#fg
+        Player(243467357),#loge
+        Player(162973981),#tiannuwang
+        Player(131849486),#kanwang
+        Player(132370368),#dachui
+        Player(175159852),#lanmaowang
+        Player(136605760),#xinshou
+        Player(173362823),#jinxiangjiao
+        Player(273755420),#afun
+        Player(325332696),#end
+        Player(140386448),#lizong
     ]
 
     report = {"date":datetime.now().strftime('%Y-%m-%d'),"detail":[]}

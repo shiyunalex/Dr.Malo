@@ -1,8 +1,67 @@
 {
-  "date": "2023-12-26",
+  "date": "2024-01-02",
   "detail": [
     {
       "nickname": "Dr. Malo",
+      "matches": []
+    },
+    {
+      "nickname": "Double Cheese",
+      "matches": [
+        {
+          "hero": "冥界亚龙",
+          "achievements": [
+            "16杀,哇 搞这么厉害呀！",
+            "塔伤12757，拆迁办来咯！"
+          ]
+        }
+      ]
+    },
+    {
+      "nickname": "smdx",
+      "matches": [
+        {
+          "hero": "主宰",
+          "achievements": [
+            "塔伤16598，拆迁办来咯！"
+          ]
+        }
+      ]
+    },
+    {
+      "nickname": "1206奶莲之夜",
+      "matches": []
+    },
+    {
+      "nickname": "一枪穿云",
+      "matches": []
+    },
+    {
+      "nickname": "BackSpace",
+      "matches": []
+    },
+    {
+      "nickname": "SSSSSSS",
+      "matches": []
+    },
+    {
+      "nickname": "新手",
+      "matches": []
+    },
+    {
+      "nickname": "金香蕉",
+      "matches": []
+    },
+    {
+      "nickname": "吃不胖好烦啊",
+      "matches": []
+    },
+    {
+      "nickname": "Bond",
+      "matches": []
+    },
+    {
+      "nickname": "心已碎",
       "matches": []
     }
   ]
